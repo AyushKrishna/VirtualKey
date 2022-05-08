@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.TreeSet;
 
@@ -88,7 +90,7 @@ public class Start {
 
 	private static void retrieveFileNames(String dir) {
 		File[] files=new File(dir).listFiles();
-		TreeSet<String> ts=new TreeSet<String>();
+		TreeSet<String> ts=new TreeSet<String>(new FileNameComparator());
 		
 		for(File f:files){
 		if(f.isFile()) {
@@ -96,7 +98,7 @@ public class Start {
 		}
 		}
 		
-		System.out.println("FILES LIST : ");
+		System.out.println("FILES LIST : \n");
 		
 		Iterator<String> it=ts.iterator();
 		
@@ -115,7 +117,7 @@ public class Start {
 		"\n Designation: Software Developer"+
 		"\n Date: 07-05-2022"+ 
 		"\n**************************************************************** " +
-		"\n**************************************************************** \n\n" 
+		"\n**************************************************************** \n" 
 		);	
 	}
 
