@@ -5,28 +5,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 public class Start {
 
+	static BufferedReader input;
+	
 	public static void main(String[] args) throws IOException {
 		
 		printLoginScreen();
 		
 		getUserInput();
 		
-//		test();
-		
 	}
 
 	private static void getUserInput() throws IOException {
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		input=new BufferedReader(new InputStreamReader(System.in));
 		String ch=null;
 		
 		System.out.println("Enter a folder path which you want to work upon or press enter to use the current directory as root folder ");
 		String dir=null;
 		
 		while(true) {
-		dir=br.readLine();
+		dir=input.readLine();
 		
 		if(dir.length()==0) {
 			dir=System.getProperty("user.dir");
@@ -53,10 +55,10 @@ public class Start {
 		
 		while(true){
 			
-		System.out.println("Enter your choice ... \n 1.Add a file to root directory \n2.Perfom business operations. \n3.Exit program ");
+		System.out.println("\nEnter your choice ... \n1.Display all files \n2.Perfom business operations. \n3.Exit program ");
 
 		try {
-			ch=br.readLine();
+			ch=input.readLine();
 		} catch (IOException e) {
 			System.out.println("Exception occured... terminating program");
 			break;
@@ -68,7 +70,7 @@ public class Start {
 			break;
 			
 		case "2":
-			BusinessOperations.performBusinessOperations(br,dir);
+			BusinessOperations.performBusinessOperations(dir);
 			break;
 			
 		case "3":
@@ -85,7 +87,22 @@ public class Start {
 	}
 
 	private static void retrieveFileNames(String dir) {
-		// TODO Auto-generated method stub
+		File[] files=new File(dir).listFiles();
+		TreeSet<String> ts=new TreeSet<String>();
+		
+		for(File f:files){
+		if(f.isFile()) {
+			ts.add(f.getName());
+		}
+		}
+		
+		System.out.println("FILES LIST : ");
+		
+		Iterator<String> it=ts.iterator();
+		
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
 		
 	}
 
