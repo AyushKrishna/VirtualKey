@@ -1,32 +1,91 @@
 package app;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 
 public class Start {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		printLoginScreen();
 		
 		getUserInput();
 		
+//		test();
+		
 	}
 
-	private static void getUserInput() {
+	private static void getUserInput() throws IOException {
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		String ch=null;
 		
-		do{
-		System.out.println("Enter your choice");
+		System.out.println("Enter a folder path which you want to work upon or press enter to use the current directory as root folder ");
+		String dir=null;
+		
+		while(true) {
+		dir=br.readLine();
+		
+		if(dir.length()==0) {
+			dir=System.getProperty("user.dir");
+			break;
+		}
+		else {
+			File f=new File(dir);
+			if(f.exists()) {
+				if(f.isDirectory()) {
+					dir=f.getAbsolutePath();
+					break;
+				}
+				else {
+					System.out.println("Invalid folder path , re-enter the folder path");
+				}
+			}
+			else {
+				System.out.println("Invalid folder path , re-enter the folder path");
+			}
+		}
+		}
+		
+		System.out.println("Root folder set as : "+dir);
+		
+		while(true){
+			
+		System.out.println("Enter your choice ... \n 1.Add a file to root directory \n2.Perfom business operations. \n3.Exit program ");
+
 		try {
 			ch=br.readLine();
 		} catch (IOException e) {
-			//e.printStackTrace();
+			System.out.println("Exception occured... terminating program");
 			break;
 		}
-		}while(!ch.equals("0"));
 		
+		switch(ch) {
+		case "1":
+			retrieveFileNames(dir);
+			break;
+			
+		case "2":
+			BusinessOperations.performBusinessOperations(br,dir);
+			break;
+			
+		case "3":
+			System.exit(0);
+			break;
+		
+		default:
+			System.out.println("Invalid input. Enter a valid option");
+		}
+		
+		}
+		
+		
+	}
+
+	private static void retrieveFileNames(String dir) {
+		// TODO Auto-generated method stub
 		
 	}
 
