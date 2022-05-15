@@ -9,7 +9,7 @@ public class BusinessOperations {
 	public static void performBusinessOperations(String dir) throws IOException {
 		
 		while(true) {
-		System.out.println("\nEnter a business operation to perform : \n1.Add a file (will be case-insensitive) \n2.Delete a file (will be case-sensitive if the OS allows case-sensitivity) \n3.Search for a file (will be case-sensitive if the OS allows case-sensitivity) \n4.Return to main menu");
+		System.out.println("\nEnter your choice to perform a business operation : \n1.Add a file (will be case-insensitive) \n2.Delete a file (will be case-sensitive if the OS allows case-sensitivity) \n3.Search for a file (will be case-sensitive if the OS allows case-sensitivity) \n4.Return to main menu");
 		String ch=Start.input.readLine();
 		
 		switch(ch) {
